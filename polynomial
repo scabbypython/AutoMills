@@ -1,0 +1,28 @@
+class Compute:
+    coeff = []
+
+    def get_input(self):
+        deg = int(input("Enter degree of polynomial: "))
+        for i in range(deg, -1, -1):
+            self.coeff.append(input("Enter the coefficient of x^{}: ".format(i)))
+
+    def get_equation(self):
+        deg = len(self.coeff)
+        equation = ""
+        for i in range(deg):
+            equation += "(" + self.coeff[i] + "*pow(x, " + str(deg - i - 1) + "))+"
+        equation += "0"
+        return equation
+
+
+def main():
+    obj = Compute()
+    obj.get_input()
+    equation = obj.get_equation()
+    print("\nPolynomial Equation:", equation)
+    x = int(input("Enter the value of x: "))
+    print("\nAnswer of Polynomial Equation:", eval(equation))
+
+
+if __name__ == "__main__":
+    main()
