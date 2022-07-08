@@ -1,0 +1,28 @@
+
+# + poly[1]x(n-2) + .. + poly[n-1]
+def horner(poly, n, x):
+
+	# Initialize result
+	result = poly[0]
+
+	# Evaluate value of polynomial
+	# using Horner's method
+	for i in range(1, n):
+
+		result = result*x + poly[i]
+
+	return result
+
+# Driver program to
+# test above function.
+
+
+# Let us evaluate value of
+# 2x3 - 6x2 + 2x - 1 for x = 3
+# -0.0073t^3 + 0.4186t^2 -7.7619t +56.414 
+poly = [-0.0073, 0.4186, -7.7619, 56.414]
+x = 22
+n = len(poly)
+
+print("Value of polynomial is:", horner(poly, n, x))
+
