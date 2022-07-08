@@ -1,0 +1,18 @@
+# importing module
+from pandas import *
+
+# reading CSV file
+data = read_csv("pylist.csv")
+
+# converting column data to list
+d = data['date'].tolist()
+t = data['temp'].tolist()
+w = data['wetness'].tolist()
+r = data['rain'].tolist()
+
+
+# printing list data
+#print('Date:', fc)
+print('Temperature:', t)
+#print('Toothpaste:', tp)
+#print('Shampoo:', sh)
