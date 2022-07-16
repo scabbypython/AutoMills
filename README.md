@@ -16,4 +16,3 @@ Progress:
 
 I have had some success with the rain_events.py file, read the comment in the begging of the file to see what it does and does not do, I will try to comment at the end of the file what I am currently working on.
 
-I may also change this repo to private for the time being so it isn't accessible to the general public.
