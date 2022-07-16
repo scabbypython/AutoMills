@@ -1,8 +1,0 @@
-#import our file, make sure file name and tabs match
-import pandas as pd
-df = pd.read_csv('pyfile.csv', usecols= ['temp'])
-print(df)
-
-#apply "If"
-df['Answer'] = df['temp'].apply(lambda x: 'True' if x <= 51.85 else 'False')
-print(df)
