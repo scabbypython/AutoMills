@@ -35,7 +35,6 @@ df['Event'] = df['rain(hours)'].apply(lambda x: 'infection' if x >= 6 else '')
 
 
 
-#df['Event'] = df['rain(hours)'].apply(lambda x: 'infection' if x >= 6 else '')
 
 print(df)
 

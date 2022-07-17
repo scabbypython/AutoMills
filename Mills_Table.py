@@ -32,6 +32,7 @@ df['Event'] = df['rain(hours)'].apply(lambda x: 'infection' if x >= 6 else '')
 
 # Mill's Table - need to compare temp column to the rain column
 dfObj = pd.DataFrame(df, columns = ['day', 'rain(5min)', 'temp', 'sessions', 'rain', 'rain(hours)', 'Event', 'prognosis'])
+
 df['prognosis'] = df['day'].map(hour_map)
 
 prognosis = dfObj[(dfObj['temp'] > 43) & (dfObj['rain'] > 18) ]
