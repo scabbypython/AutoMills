@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-file = 'Mills_Table_data.csv'
+file = 'Mills_Table_data_short.csv'
 df = pd.read_csv(file, sep = ',', parse_dates= ['index'],encoding='utf-8-sig', usecols= ['index', 'rain', 'temp'],)    
 df['duration'] = df['index'].dt.month
 
@@ -25,14 +25,16 @@ df['rain_5min'] = df['day'].map(hour_map)
 df = df.groupby(['day', 'rain_5min', 'temp', 'sessions'], as_index=False)['rain'].median()
 df['rain_hours'] = df['rain_5min'] / df['sessions']/12
 
-df = df[np.logical_and(df['temp'] >= 43, df['rain_hours'] > 1)]
+#df = df[np.logical_and(df['temp'] >= 43, df['rain_hours'] > 18)]
+result = df[((df['temp'] >=54) & (df['temp'] < 53)) & (df['rain_hours']) >= 1 & (df['rain_hours'] < 2)]
 
+df['result'] = df['day'].map(hour_map)
 
 print(df)
 
 
 #df['Event'] = df['rain_hours'].apply(lambda x: 'infection' if x >= 6 else '')
-
+ 
 
 
 
