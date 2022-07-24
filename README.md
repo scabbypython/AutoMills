@@ -1,20 +1,13 @@
 # AutoMills
 
-I figured out the minute to hour thing however we may not need it.
+The 'together.py' script is the latest iteration of the full working script, it seems to be applying the appropriate labels to the Mills Table results
 
-Full walkthrough:
-
-Track rain events (5 minute), blocks are unique events. If uniques events are more than 6 hours check temp
-
-Temp is derived from the average of the the min/max of that uniques period
-
-Use the average temp per unique event with unique event duration and print Mills Table result.
-
-I am currently working on the "together.py" script to see if I can put it all together.
+- needs to be checked to see if it is really doing what we want (can we visualize this somehow?)
+- need to remove all values not giving results
 
 
 
-I am using this Mill's table as it is in farenheight:  https://extension.psu.edu/tree-fruit-disease-an-apple-scab-review
+I am using this Mill's table as it is in farenheight with a minor change to add a missing temeprature point:  https://extension.psu.edu/tree-fruit-disease-an-apple-scab-review
 
 This code is designed to implement the Mill's Apple Scab model on weather station data.
 
