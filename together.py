@@ -6,7 +6,7 @@ import numpy as np
 
 # read in .csv file 'index' column should be date 
 
-file = 'Mills_Table_data.csv'
+file = 'Mills_Table_data_reduced.csv'
 df = pd.read_csv(file, sep = ',',parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
 
 
