@@ -48,10 +48,10 @@ df = df.replace(np.nan, 0)
 
 
 
-lesion_17_1 = df.loc[((df['temp'] >= 43) & (df['temp'] < 45)) & ((df['rain_block'] > 18))] 
-lesion_17_2 = df.loc[((df['temp'] >= 45) & (df['temp'] < 46)) & ((df['rain_block'] > 15))]
-lesion_17_3 = df.loc[((df['temp'] >= 46) & (df['temp'] < 48)) & ((df['rain_block'] > 13))]
-lesion_17_4 = df.loc[((df['temp'] >= 48) & (df['temp'] < 50)) & ((df['rain_block'] > 12))]
+lesion_17_4 = df.loc[((df['temp'] >= 43) & (df['temp'] < 45)) & ((df['rain_block'] > 18))] 
+lesion_17_3 = df.loc[((df['temp'] >= 45) & (df['temp'] < 46)) & ((df['rain_block'] > 15))]
+lesion_17_2 = df.loc[((df['temp'] >= 46) & (df['temp'] < 48)) & ((df['rain_block'] > 13))]
+lesion_17_1= df.loc[((df['temp'] >= 48) & (df['temp'] < 50)) & ((df['rain_block'] > 12))]
 lesion_16 = df.loc[((df['temp'] >= 50) & (df['temp'] < 52)) & ((df['rain_block'] > 11))]
 lesion_15 = df.loc[((df['temp'] >= 52) & (df['temp'] < 54)) & ((df['rain_block'] >  9))]
 lesion_14 = df.loc[((df['temp'] >= 54) & (df['temp'] < 57)) & ((df['rain_block'] > 8))]
@@ -61,13 +61,18 @@ lesion_9_10 = df.loc[((df['temp'] >= 60) & (df['temp'] < 76)) & ((df['rain_block
 
 
 
+df['infection_event'] = lesion_17_4['rain_block'].apply(lambda x: 'lesions in 17 days' if x >= 18 else '')
+df['infection_event'] = lesion_17_3['rain_block'].apply(lambda x: 'lesions in 16 days' if x >= 15 else '')
+df['infection_event'] = lesion_17_2['rain_block'].apply(lambda x: 'lesions in 15 days' if x >= 13 else '')
+df['infection_event'] = lesion_17_1['rain_block'].apply(lambda x: 'lesions in 17 days' if x >= 12 else '')
+df['infection_event'] = lesion_16['rain_block'].apply(lambda x: 'lesions in 16 days' if x >= 11 else '')
+df['infection_event'] = lesion_15['rain_block'].apply(lambda x: 'lesions in 15 days' if x >= 9 else '')
+df['infection_event'] = lesion_14['rain_block'].apply(lambda x: 'lesions in 14 days' if x >= 8 else '')
+df['infection_event'] = lesion_11_13['rain_block'].apply(lambda x: 'lesions in 11-13 days' if x >= 7 else '')
+df['infection_event'] = lesion_9_10['rain_block'].apply(lambda x: 'lesions in 9-10 days' if x >= 6 else '')
 
-df['infection_event'] = df['rain_block'].apply(lambda x: '17 days' if x >= 12 else '')
-df['infection_event'] = df['rain_block'].apply(lambda x: '16 days' if x >= 11 else '')
-df['infection_event'] = df['rain_block'].apply(lambda x: '15 days' if x >= 9 else '')
-df['infection_event'] = df['rain_block'].apply(lambda x: '14days' if x >= 8 else '')
-df['infection_event'] = df['rain_block'].apply(lambda x: '11-13 days' if x >= 7 else '')
-df['infection_event'] = df['rain_block'].apply(lambda x: '9-10 days' if x >= 6 else '')
+
+df = df.replace(np.nan, '')
 
 print(df['infection_event'])
 
