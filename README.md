@@ -20,6 +20,5 @@ This code is designed to implement the Mill's Apple Scab model on weather statio
 
 It is a work in progress...
 
-Labeling: 
 
 
