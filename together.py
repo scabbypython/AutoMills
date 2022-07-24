@@ -1,12 +1,10 @@
-# This code seems to print the correct infection periods, it currently prints out the whole df though
-
 
 import pandas as pd
 import numpy as np
 
 # read in .csv file 'index' column should be date 
 
-file = 'Mills_Table_data_reduced.csv'
+file = 'Mills_Table_data.csv'
 df = pd.read_csv(file, sep = ',',parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
 
 
@@ -73,6 +71,8 @@ df['infection_event'] = lesion_9_10['rain_block'].apply(lambda x: 'lesions in 9-
 
 
 df = df.replace(np.nan, '')
+
+df = df[df["infection_event"].str.contains("lesions in 17 days|lesions in 16 days|lesions in 15 days|lesions in 14 days|lesions in 11-13 days|lesions in 9-10 days")]
 
 print(df['infection_event'])
 
