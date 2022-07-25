@@ -5,7 +5,7 @@ import numpy as np
 
 # read in .csv file 'index' column should be date 
 
-file = 'Mills_Table_data.csv'
+file = 'Mills_Table_data_reduced.csv'
 df = pd.read_csv(file, sep = ',',parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
 
 
@@ -94,13 +94,17 @@ def mills_table(temp, rain_block):
             
             
             
-    # returns results :)        
+    # returns results :)   
+         
     return results        
             
             
+            
+
+      
 # run the above mills_table function on the data
             
-df["lesion result"] = df[["temp", "rain_block"]].apply(lambda x : mills_table(*x), axis=1)
+df['lesion_result'] = df[['temp', 'rain_block']].apply(lambda x : mills_table(*x), axis=1)
 
 
 # replace any NaN data with empty string
@@ -109,7 +113,23 @@ df = df.replace(np.nan, '')
 
 # print dataframe results
 
-print(df["lesion result"])
+
+
+
+df2 = df.copy()                          # Create duplicate of data
+
+df2.dropna(subset = ['rain_block'], inplace = True)     # Remove rows with NaN
+
+
+print(df2['rain_block'])
+
+
+# Export a Pandas Dataframe to CSV
+# Relative File Path
+df2.to_csv('rain_block')
+# Fixed File Path
+df2.to_csv('C:\\Users\\proco\\Desktop\\lesion_result.csv')
+
 
 # old snipets:
 
