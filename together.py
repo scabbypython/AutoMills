@@ -118,15 +118,15 @@ df = df.replace(np.nan, '')
 
 df2 = df.copy()                          # Create duplicate of data
 
-df2.dropna(subset = ['rain_block'], inplace = True)     # Remove rows with NaN
+df2.dropna(subset = ['lesion_result'], inplace = True)     # Remove rows with NaN
 
 
-print(df2['rain_block'])
+print(df2['lesion_result'])
 
 
 # Export a Pandas Dataframe to CSV
 # Relative File Path
-df2.to_csv('rain_block')
+df2.to_csv('lesion_result')
 # Fixed File Path
 df2.to_csv('C:\\Users\\proco\\Desktop\\lesion_result.csv')
 
