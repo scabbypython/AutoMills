@@ -35,17 +35,30 @@ df['unique_rain_block'] = df['rain_block'].map(unique_rain_block)
 
 selected_rows = df[~df['unique_rain_block'].isna()]
 
+results = selected_rows.groupby('unique_rain_block').agg({'temp': ['mean', 'min', 'max']})
+#results['results'] = results.apply(lambda x: mills_table(x['temp']['mean'], x['unique_rain_block']), axis=1)
+print(results)
 
-newdf = df[['rain_block', 'unique_rain_block']].drop_duplicates(subset=None, keep='first')
-newdf.groupby('rain_block').count()
+#print(selected_rows)
+#newdf = df[['rain_block', 'unique_rain_block']].drop_duplicates(subset=None, keep='first')
+#newdf.groupby('rain_block').count()
 
-newdf1 = df[['rain_block', 'unique_rain_block']].drop_duplicates(subset=None, keep='last')
-newdf1.groupby('rain_block').count()
+#newdf1 = df[['rain_block', 'unique_rain_block']].drop_duplicates(subset=None, keep='last')
+#newdf1.groupby('rain_block').count()
 
-selected_rows = newdf[~df['unique_rain_block'].isna()]
-selected_rows1 = newdf1[~df['unique_rain_block'].isna()]
+#selected_rows = newdf[~df['unique_rain_block'].isna()]
+#selected_rows1 = newdf1[~df['unique_rain_block'].isna()]
 
-print(selected_rows, selected_rows1)
+
+#frames = [selected_rows, selected_rows1]
+
+#result = pd.concat(frames)
+
+
+
+
+
+#print(result)
 # replace all NaN with 0 - may not be needed
 
 #df = df.replace(np.nan, 0)
