@@ -45,8 +45,6 @@ df['avg_temp']=(df['temp_results_max'] + df['temp_results_min'])/2
 #drop rows with NaN values
 df=df.dropna(axis=0)
 
-
-
 def mills_table(avg_temp, rain_hour_block):
     #
     results = 0
@@ -103,32 +101,12 @@ def mills_table(avg_temp, rain_hour_block):
          
     return results        
             
-            
-            
-
-      
 # run the above mills_table function on the data      
 df['lesion_result'] = df[['avg_temp', 'rain_hour_block']].apply(lambda x : mills_table(*x), axis=1)
 
-
 # replace any NaN data with empty string
-
 df = df.replace(np.nan, '')
 
+
 # print dataframe results
-
-
-
-
-df2 = df.copy()                          # Create duplicate of data
-
-df2.dropna(subset = ['lesion_result'], inplace = True)     # Remove rows with NaN
-
-
-print(df2['lesion_result'])
-
-
-
-
-#print stuff
-print(df[['rain_hour_block','avg_temp','temp_results_max', 'temp_results_min']])
+print(df[['rain_hour_block','avg_temp','temp_results_max', 'temp_results_min','lesion_result',]])
