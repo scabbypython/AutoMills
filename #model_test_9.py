@@ -7,13 +7,10 @@ pd.set_option('display.max_rows', None)
 
 #read file
 file = 'Mills_Table_data_reduced.csv'
-
-
 df = pd.read_csv(file, sep = ',', parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
 df = pd.read_csv(file, sep = ',', parse_dates=['index'],usecols= ['index', 'rain', 'temp'])
 
-#print(df)
-#print(df.columns)
+
 #convert to datetime
 df.index = pd.to_datetime(df.index)
 
@@ -29,8 +26,6 @@ hour_map = df[df['duration'].astype(bool)].groupby('rain_block')['rain'].count()
 df['sessions'] = df['rain_block'].map(session_map)
 df['rain_5min'] = df['rain_block'].map(hour_map)
 
-
-
 df = df.groupby(['index','rain_block', 'rain_5min','temp', 'sessions'], as_index=False)['rain'].median()
 df['rain_hours'] = df['rain_5min'] / df['sessions']/12
 
@@ -42,27 +37,21 @@ df['temp_results_min']=temp_results_min
 temp_results_max = df.groupby('rain_block').agg({'temp': ['max']})
 df['temp_results_max']=temp_results_max
 
-
 #calculate rain_hour_block
 rain_hour_block = df.groupby('rain_block').agg({'rain_hours': ['mean']})
 df['rain_hour_block']=rain_hour_block
 
-
-
-
-
 #calculate average temp; (min+max)/2
 df['avg_temp']=(df['temp_results_max'] + df['temp_results_min'])/2
 
-
+#create new column for index (index2)
 df['index2']=df.groupby('rain_block').agg({'index': ['first']})
-#print(df['index2'])
 
 #drop rows with NaN values
 df=df.dropna(axis=0)
 
 
-
+#define mills_table
 def mills_table(avg_temp, rain_hour_block):
     #
     results = 0
@@ -125,6 +114,5 @@ df['lesion_result'] = df[['avg_temp', 'rain_hour_block']].apply(lambda x : mills
 # replace any NaN data with empty string
 df = df.replace(np.nan, '')
 
-
 # print dataframe results
-print(df[['index2','rain_hour_block','avg_temp','temp_results_max', 'temp_results_min','lesion_result',]])
+print(df[['index2','rain_hour_block','avg_temp','lesion_result',]])
