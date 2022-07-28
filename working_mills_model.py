@@ -1,5 +1,3 @@
-#model_test_9
-
 #import software libraries
 import pandas as pd
 import numpy as np
@@ -7,7 +5,7 @@ pd.set_option('display.max_rows', None)
 
 #read file
 file = 'Mills_Table_data_reduced.csv'
-#df = pd.read_csv(file, sep = ',', parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
+
 df = pd.read_csv(file, sep = ',', parse_dates=['index'], usecols= ['index', 'rain', 'temp'])
 
 
