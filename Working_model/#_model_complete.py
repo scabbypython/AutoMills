@@ -9,7 +9,7 @@ import numpy as np
 pd.set_option('display.max_rows', None)
 
 #read file
-file = 'a11.csv'
+file = 'C:\\Users\\proco\\Documents\\GitHub\\AutoMills\\Working_model\\north.csv'
 
 df = pd.read_csv(file, sep = ',', parse_dates=['index'], usecols= ['index', 'rain', 'temp'])
 
