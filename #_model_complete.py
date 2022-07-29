@@ -105,11 +105,7 @@ def mills_table(avg_temp, rain_hour_block):
             results = '10'
         else:
             results = '0'        
-            
-            
-            
-     
-         
+                 
     return results        
             
 # run the mills_table function on the data      
