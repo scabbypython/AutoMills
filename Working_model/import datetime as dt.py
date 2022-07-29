@@ -8,7 +8,7 @@ import numpy as np
 
 
 #read file
-file = 'C:\\Users\\proco\\Documents\\GitHub\\AutoMills\\Working_model\\Working_model\infection_comparison.xlsx'
+file = 'infection_comparison.xlsx'
 
 df = pd.read_csv(file, sep = ',', parse_dates=['index'], usecols= ['index', 'rain', 'temp'])
 
