@@ -6,7 +6,7 @@ import numpy as np
 # we want total rainfall for period and the temp may be average or not included there as we are using the blocks max/min
 # read in .csv file 'index' column should be date coumn
 
-file = 'Mills_Table_data.csv'
+file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\old_files\Mills_Table_data.csv'
 df = pd.read_csv(file, parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
 
 
@@ -14,11 +14,11 @@ df = pd.read_csv(file, parse_dates=['index'], index_col=['index'],usecols= ['ind
 
 df_hour = df.resample('H').mean()
 
-df_hour_sum = df.resample('H').sum()
+#df_hour_sum = df.resample('H').sum()
 
 
 print(df_hour)
-print(df_hour_sum)
+#print(df_hour_sum)
 
 
 
@@ -33,7 +33,7 @@ df['duration'] = df['rain'].apply(lambda x: '' if x <= 90 else '0.08333333333333
 
 # create helper columns defining contiguous blocks and day
 df['block'] = (df['duration'].astype(bool).shift() != df['duration'].astype(bool)).cumsum()
-df['day'] = df_hour_sum .dt.normalize()
+#df['day'] = df_hour_sum .dt.normalize()
 #results = df.groupby('rain_hours').agg({'temp': ['mean', 'min', 'max']})
   
 #print("Mean, min, and max rains of Top Speed grouped by Vehicle Type")
