@@ -9,23 +9,16 @@ import numpy as np
 pd.set_option('display.max_rows', None)
 
 #read file
-#file = r'C:\Users\AWHCa\OneDrive\Documents\GitHub\AutoMills\AutoMills\north_x_merged.csv'
-file = r'C:\Users\ResononScanningSyst\Desktop\AutoMills\merged\north_x_merged.csv'
-
-
+file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11.csv.csv'
 
 df = pd.read_csv(file, sep = ',', parse_dates=['index'], usecols= ['index', 'rain', 'temp'])
-
 
 
 #convert to datetime
 df.index = pd.to_datetime(df.index)
 
-df.resample('H').mean()
-
-print(df)
 #create duration column
-df['duration'] = df['rain'].apply(lambda x: '1' if x >= 90 else '')
+df['duration'] = df['rain'].apply(lambda x: '0.0833333333333333' if x >= 90 else '')
 
 #create rain_block column 
 df['rain_block'] = (df['duration'].astype(bool).shift() != df['duration'].astype(bool)).cumsum()
@@ -34,13 +27,11 @@ df['rain_block'] = (df['duration'].astype(bool).shift() != df['duration'].astype
 session_map = df[df['duration'].astype(bool)].groupby('rain_block')['rain_block'].nunique()
 hour_map = df[df['duration'].astype(bool)].groupby('rain_block')['rain'].count()
 df['sessions'] = df['rain_block'].map(session_map)
-#changed rain_5min to rain_60min
-df['rain_60min'] = df['rain_block'].map(hour_map)
+df['rain_5min'] = df['rain_block'].map(hour_map)
 
 #create rain_hours column
-df = df.groupby(['index','rain_block', 'rain_60min','temp', 'sessions'], as_index=False)['rain'].median()
-#no longer divide by 12 to get rain_hours, because it is already in 60 min intervals
-df['rain_hours'] = df['rain_60min'] / df['sessions']
+df = df.groupby(['index','rain_block', 'rain_5min','temp', 'sessions'], as_index=False)['rain'].median()
+df['rain_hours'] = df['rain_5min'] / df['sessions']/12
 
 #calculate min temp of each rain_block
 temp_results_min = df.groupby('rain_block').agg({'temp': ['min']})
@@ -171,6 +162,9 @@ df['index2'] = pd.to_datetime(df['index2'])
 
 # omit zero values in lesion_result column
 df= df[df['lesion_result'] != 0]
+
+# create temp variable to add days for 1 date
+temp = df['lesion_result'].apply(np.ceil).apply(lambda x: pd.Timedelta(x, unit='D'))
 
 
 #erase index colum for printing 
