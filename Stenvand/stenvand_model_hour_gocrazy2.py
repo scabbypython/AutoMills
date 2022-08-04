@@ -19,7 +19,8 @@ df = pd.read_csv(file, sep = ',', parse_dates=['index'], usecols= ['index', 'rai
 
 
 #convert to datetime
-df.index = pd.to_datetime(df)
+df.index = pd.to_datetime(df.index)
+
 df.resample('H').mean()
 
 print(df)

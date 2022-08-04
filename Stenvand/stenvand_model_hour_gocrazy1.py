@@ -9,8 +9,8 @@ import numpy as np
 pd.set_option('display.max_rows', None)
 
 #read file
-file = r'C:\Users\AWHCa\OneDrive\Documents\GitHub\AutoMills\AutoMills\north_x_merged.csv'
-#r'C:\Users\ResononScanningSyst\Desktop\AutoMills\merged\north_x_merged.csv'
+#file = r'C:\Users\AWHCa\OneDrive\Documents\GitHub\AutoMills\AutoMills\north_x_merged.csv'
+file = r'C:\Users\ResononScanningSyst\Desktop\AutoMills\hour_model\north_x.csv'
 
 
 
@@ -21,7 +21,7 @@ df = pd.read_csv(file, sep = ',', parse_dates=['index'], usecols= ['index', 'rai
 df.index = pd.to_datetime(df.index)
 
 #create duration column
-df['duration'] = df['rain'].apply(lambda x: '0.0833333333333333' if x >= 90 else '')
+df['duration'] = df['rain'].apply(lambda x: '1' if x >= 90 else '')
 
 #create rain_block column 
 df['rain_block'] = (df['duration'].astype(bool).shift() != df['duration'].astype(bool)).cumsum()
