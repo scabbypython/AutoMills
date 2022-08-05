@@ -10,8 +10,8 @@ pd.set_option('display.max_rows', None)
 
 #read file
 #file = r'C:\Users\AWHCa\OneDrive\Documents\GitHub\AutoMills\AutoMills\north_x_merged.csv'
-file = r'C:\Users\ResononScanningSyst\Desktop\AutoMills\hour_model\north_x.csv'
-
+#file = r'C:\Users\ResononScanningSyst\Desktop\AutoMills\hour_model\north_x.csv'
+file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\hour_model\a11.csv'
 
 
 df = pd.read_csv(file, sep = ',', parse_dates=['index'], usecols= ['index', 'rain', 'temp'])
