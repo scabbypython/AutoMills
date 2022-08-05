@@ -9,7 +9,8 @@ import numpy as np
 pd.set_option('display.max_rows', None)
 
 #read file
-file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11.csv'
+#file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11.csv'
+file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\south_merged.csv'
 
 df = pd.read_csv(file, sep = ',', parse_dates=['index'], usecols= ['index', 'rain', 'temp'])
 
