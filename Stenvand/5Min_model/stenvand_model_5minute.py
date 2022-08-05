@@ -192,7 +192,7 @@ infection is successful, will generally appear after 9 days incubation with aver
 at 60 F and after 16 days or more with average daily temperatures below 50F."""
   
 # Wrap this text.
-wrapper = textwrap.TextWrapper(width=50)
+wrapper = textwrap.TextWrapper(width=100)
   
 word_list = wrapper.wrap(text=value)
   

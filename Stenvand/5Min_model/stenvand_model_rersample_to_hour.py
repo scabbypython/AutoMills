@@ -11,8 +11,8 @@ import textwrap
 #pd.set_option('display.max_rows', None)
 
 #read file
-#file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11.csv'
-file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\north_e_merged.csv'
+file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11_merged.csv'
+#file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\north_e_merged.csv'
 
 df = pd.read_csv(file, parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
 
@@ -27,10 +27,10 @@ df_hour = df.resample('H').mean()
 #print(df_hour)
 
 #save dataframe to csv file (sneaky trick, bad code I think)
-df_hour.to_csv(r"C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\remap.csv")
+df_hour.to_csv(r"C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\remap.csv")
 
 #read file back in as hourly data
-file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\remap.csv'
+file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\remap.csv'
 
 df = pd.read_csv(file, sep = ',', parse_dates=['index'], usecols= ['index', 'rain', 'temp'])
 
