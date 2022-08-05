@@ -1,5 +1,5 @@
 # This code is designed to implement the Mill's Apple Scab model on weather station data.
-# It needs a data source in 5 min increments which will be resampled to hourly readings .
+# data is required in 5 minute increments which is downsampled to hourly data by mean.
 # https://www.canr.msu.edu/uploads/files/Research_Center/NW_Mich_Hort/Pests_IPM_Mgmt/Apple_Scab_Infection_Chart.pdf
 
 
