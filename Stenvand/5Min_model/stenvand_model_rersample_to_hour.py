@@ -11,7 +11,7 @@ import numpy as np
 
 #read file
 #file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11.csv'
-file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11_merged.csv'
+file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\north_e_merged.csv'
 
 df = pd.read_csv(file, parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
 
