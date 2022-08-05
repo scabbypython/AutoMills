@@ -10,15 +10,9 @@ import textwrap
 #display all rows when printing the dataframe
 #pd.set_option('display.max_rows', None)
 
-number_of_files = 9
-
-for file in range(1, number_of_files+1):
-    df = pd.read_csv("{}.csv".format(file))
-
-    #your code here, do analysis and then the loop will return and read the next dataframe
 #read file
 #file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11.csv'
-#file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\north_e_merged.csv'
+file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\north_e_merged.csv'
 
 df = pd.read_csv(file, parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
 

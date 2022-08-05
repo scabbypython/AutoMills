@@ -38,7 +38,7 @@ df['sessions'] = df['rain_block'].map(session_map)
 df['rain_60min'] = df['rain_block'].map(hour_map)
 
 #create rain_hours column
-df = df.groupby(['index','rain_block', 'rain_60min','temp', 'sessions'], as_index=False)['rain'].median()
+df = df.groupby(['index','rain_block', 'rain_60min','temp', 'sessions'], as_index=False)['rain'].mean()
 #no longer divide by 12 to get rain_hours, because it is already in 60 min intervals
 df['rain_hours'] = df['rain_60min'] / df['sessions']
 
