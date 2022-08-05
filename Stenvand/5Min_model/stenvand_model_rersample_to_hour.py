@@ -1,4 +1,5 @@
 # This code is designed to implement the Mill's Apple Scab model on weather station data.
+# It is designed for a 5 min data source which is resampled to an hourly.
 # https://www.canr.msu.edu/uploads/files/Research_Center/NW_Mich_Hort/Pests_IPM_Mgmt/Apple_Scab_1_Chart.pdf
 
 #import software libraries
@@ -10,7 +11,7 @@ import numpy as np
 
 #read file
 #file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11.csv'
-file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\south_merged.csv'
+file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11_merged.csv'
 
 df = pd.read_csv(file, parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
 
