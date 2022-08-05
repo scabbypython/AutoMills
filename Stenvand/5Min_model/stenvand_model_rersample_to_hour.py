@@ -7,65 +7,67 @@ import numpy as np
 
 #display all rows when printing the dataframe
 #pd.set_option('display.max_rows', None)
-file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11_merged.csv'
+
+#read file
+#file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\a11.csv'
+file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\south_merged.csv'
+
 df = pd.read_csv(file, parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
 
-df['index'] = pd.to_datetime(df['index'])
 
 # resample 5 minute data to hourly data using mean
 
-df2 = df.resample('H').mean()
+df_hour = df.resample('H').mean()
 
 #df_hour_sum = df.resample('H').sum()
 
 
-print(df2)
-#convert to datetime
-#df.index = pd.to_datetime(df.index)
-#df = df.set_index(pd.to_datetime(df.index))
-#df = df.set_index('index') 
-#df.resample('H').mean()
+#print(df_hour)
 
-#print(df)
+#save dataframe to csv file (sneaky trick, bad code I think)
+df_hour.to_csv(r"C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\remap.csv")
+
+#read file back in as hourly data
+file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\remap.csv'
+
+df = pd.read_csv(file, sep = ',', parse_dates=['index'], usecols= ['index', 'rain', 'temp'])
+
 #create duration column
-df2['duration'] = df['rain'].apply(lambda x: '1' if x >= 90 else '')
+df['duration'] = df['rain'].apply(lambda x: '1' if x >= 90 else '')
 
 #create rain_block column 
-df2['rain_block'] = (df2['duration'].astype(bool).shift() != df2['duration'].astype(bool)).cumsum()
+df['rain_block'] = (df['duration'].astype(bool).shift() != df['duration'].astype(bool)).cumsum()
 
 #group by unique events map session and 5 minute rain increments back to dataframe
-session_map = df2[df2['duration'].astype(bool)].groupby('rain_block')['rain_block'].nunique()
-hour_map = df2[df2['duration'].astype(bool)].groupby('rain_block')['rain'].count()
-df2['sessions'] = df2['rain_block'].map(session_map)
-#changed rain_5min to rain_60min
-df2['rain_60min'] = df2['rain_block'].map(hour_map)
+session_map = df[df['duration'].astype(bool)].groupby('rain_block')['rain_block'].nunique()
+hour_map = df[df['duration'].astype(bool)].groupby('rain_block')['rain'].count()
+df['sessions'] = df['rain_block'].map(session_map)
+df['rain_5min'] = df['rain_block'].map(hour_map)
 
 #create rain_hours column
-df2 = df2.groupby(['index','rain_block', 'rain_60min','temp', 'sessions'], as_index=False)['rain'].median()
-#no longer divide by 12 to get rain_hours, because it is already in 60 min intervals
-df2['rain_hours'] = df2['rain_60min'] / df2['sessions']
+df = df.groupby(['index','rain_block', 'rain_5min','temp', 'sessions'], as_index=False)['rain'].median()
+df['rain_hours'] = df['rain_5min'] / df['sessions']
 
 #calculate min temp of each rain_block
-temp_results_min = df2.groupby('rain_block').agg({'temp': ['min']})
-df2['temp_results_min']=temp_results_min
+temp_results_min = df.groupby('rain_block').agg({'temp': ['min']})
+df['temp_results_min']=temp_results_min
 
 #calculate max temp of each rain_block
-temp_results_max = df2.groupby('rain_block').agg({'temp': ['max']})
-df2['temp_results_max']=temp_results_max
+temp_results_max = df.groupby('rain_block').agg({'temp': ['max']})
+df['temp_results_max']=temp_results_max
 
 #calculate rain_hour_block
-rain_hour_block = df2.groupby('rain_block').agg({'rain_hours': ['mean']})
-df2['rain_hour_block']=rain_hour_block
+rain_hour_block = df.groupby('rain_block').agg({'rain_hours': ['mean']})
+df['rain_hour_block']=rain_hour_block
 
 #calculate average temp; (min+max)/2
-df2['avg_temp']=(df2['temp_results_max'] + df2['temp_results_min'])/2
-
+df['avg_temp']=(df['temp_results_max'] + df['temp_results_min'])/2
 
 #create new column for index (index2)
-df2['index2']=df2.groupby('rain_block').agg({'index': ['first']})
+df['index2']=df.groupby('rain_block').agg({'index': ['first']})
 
 #drop rows with NaN values
-df2=df2.dropna(axis=0)
+df=df.dropna(axis=0)
 
 
 #define mills_table function
@@ -162,24 +164,27 @@ def mills_table(avg_temp, rain_hour_block):
     return results        
             
 # run the mills_table function on the data      
-df2['lesion_result'] = df2[['avg_temp', 'rain_hour_block']].apply(lambda x : mills_table(*x), axis=1)
+df['lesion_result'] = df[['avg_temp', 'rain_hour_block']].apply(lambda x : mills_table(*x), axis=1)
 
-df2['lesion_result'] = df2['lesion_result'].astype(int)
+df['lesion_result'] = df['lesion_result'].astype(int)
 
 
 # replace any NaN data with empty string
-df2 = df2.replace(np.nan, '')
+df = df.replace(np.nan, '')
 
-df2['index2'] = pd.to_datetime(df['index2'])
+df['index2'] = pd.to_datetime(df['index2'])
 
 
 # omit zero values in lesion_result column
-df2= df2[df2['lesion_result'] != 0]
+df= df[df['lesion_result'] != 0]
+
+# create temp variable to add days for 1 date
+temp = df['lesion_result'].apply(np.ceil).apply(lambda x: pd.Timedelta(x, unit='D'))
 
 
 #erase index colum for printing 
-blankIndex=[''] * len(df2)
-df2.index=blankIndex
+blankIndex=[''] * len(df)
+df.index=blankIndex
 
 
 # print Mills Table Results results
