@@ -24,10 +24,10 @@ print(df)
 
 fig, ax = plt.subplots()
 
-ax.bar(df['index'])
-ax.bar(df['a11'])
+ax.bar(df['index'],1)
+ax.bar(df['a11'],1)
 
-ax.set_ylabel('Scores')
+ax.set_ylabel('Scores', 1)
 ax.set_title('Scores by group and gender')
 ax.legend()
 
