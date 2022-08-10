@@ -1,0 +1,35 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+#display all rows when printing the dataframe
+pd.set_option('display.max_rows', None)
+
+#read file
+#file = r'C:\Users\AWHCa\OneDrive\Documents\GitHub\AutoMills\AutoMills\north_x_merged.csv'
+#file = r'C:\Users\ResononScanningSyst\Desktop\AutoMills\merged\north_x_merged.csv'
+file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\5min_hour_comparison_test.csv'
+
+
+df = pd.read_csv(file, sep = ',', parse_dates=['index'] , usecols= ['index', 'a11', 'a16'])
+
+df=df.dropna(axis=0)
+
+
+df = df.sort_values('index', ascending=True)
+plt.plot(df['index'], df['a11'])
+plt.xticks(rotation='vertical')
+plt.show()
+print(df)
+
+
+fig, ax = plt.subplots()
+
+ax.bar(df['index'])
+ax.bar(df['a11'])
+
+ax.set_ylabel('Scores')
+ax.set_title('Scores by group and gender')
+ax.legend()
+
+plt.show()
+
