@@ -11,7 +11,7 @@ import textwrap
 #pd.set_option('display.max_rows', None)
 
 #read file
-file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Stenvand\5Min_model\Mills_Table_data_reduced.csv'
+file = r'C:\Users\ResononScanningSyst\Documents\GitHub\AutoMills\Mills_Table_Data_Reduced_3.csv'
 #file = r'C:\Users\proco\Documents\GitHub\AutoMills\Stenvand\5Min_model\north_e_merged.csv'
 
 df = pd.read_csv(file, parse_dates=['index'], index_col=['index'],usecols= ['index', 'rain', 'temp'])
@@ -78,92 +78,92 @@ def mills_table(avg_temp, rain_hour_block):
     results = 0
     #
     if avg_temp >=34 and avg_temp <36:
-        if rain_hour_block > 41:
+        if rain_hour_block >= 41:
             results = '1'
         else:
             results = '0'
     elif avg_temp >=36 and avg_temp <37:
-        if rain_hour_block > 35:
+        if rain_hour_block >= 35:
             results = '1'
         else:
             results = '0'
     elif avg_temp >=37 and avg_temp <39:
-        if rain_hour_block > 30:
+        if rain_hour_block >= 30:
             results = '1'
         else:
             results = '0'
     elif avg_temp >=39 and avg_temp <41:
-        if rain_hour_block > 28:
+        if rain_hour_block >= 28:
             results = '1'
         else:
             results = '0'        
     elif avg_temp >=41 and avg_temp <43:
-        if rain_hour_block > 21:
+        if rain_hour_block >= 21:
             results = '1'
         else:
             results = '0'        
     elif avg_temp >=43 and avg_temp <45:
-        if rain_hour_block > 18:
+        if rain_hour_block >= 18:
             results = '1'
         else:
             results = '0'
     elif avg_temp >=45 and avg_temp <46:
-        if rain_hour_block > 15:
+        if rain_hour_block >= 15:
             results = '1'
         else:
             results = '0'        
     elif avg_temp >=46 and avg_temp <48:
-        if rain_hour_block > 13:
+        if rain_hour_block >= 13:
             results = '1'
         else:
             results = '0'        
     elif avg_temp >=48 and avg_temp <50:
-        if rain_hour_block > 12:
+        if rain_hour_block >= 12:
             results = '1'
         else:
             results = '0'    
     elif avg_temp >=50 and avg_temp <52:
-        if rain_hour_block > 11:
+        if rain_hour_block >= 11:
             results = '1'
         else:
             results = '0'  
     elif avg_temp >=52 and avg_temp <54:
-        if rain_hour_block > 9:
+        if rain_hour_block >= 9:
             results = '1'
         else:
             results = '0' 
     elif avg_temp >=54 and avg_temp <55:
-        if rain_hour_block > 8:
+        if rain_hour_block >= 8:
             results = '1'
         else:
             results = '0' 
     elif avg_temp >=55 and avg_temp <57:
-        if rain_hour_block > 8:
+        if rain_hour_block >= 8:
             results = '1'
         else:
             results = '0'             
     elif avg_temp >=57 and avg_temp <59:
-        if rain_hour_block > 7:
+        if rain_hour_block >= 7:
             results = '1'
         else:
             results = '0' 
     elif avg_temp >=59 and avg_temp <61:
-        if rain_hour_block > 7:
+        if rain_hour_block >= 7:
             results = '1'
         else:
             results = '0'                                         
     elif avg_temp >=61 and avg_temp <77:
-        if rain_hour_block > 6:
+        if rain_hour_block >= 6:
             results = '1'
         else:
             results = '0'   
     elif avg_temp >=77 and avg_temp <150:
-        if rain_hour_block > 8:
+        if rain_hour_block >= 8:
             results = '1'
         else:
             results = '0'     
                      
-    return results        
+    return results
             
 # run the mills_table function on the .csv file    
 df['lesion_result'] = df[['avg_temp', 'rain_hour_block']].apply(lambda x : mills_table(*x), axis=1)
